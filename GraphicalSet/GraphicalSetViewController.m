@@ -20,7 +20,7 @@
 
 @end
 
-#define STARTING_CARD_COUNT 12
+#define STARTING_CARD_COUNT 20
 
 @implementation GraphicalSetViewController
 
@@ -66,6 +66,7 @@
             setCell.setCardView.color = setCard.color;
             setCell.setCardView.shape = setCard.shape;
             setCell.setCardView.shading = setCard.shading;
+            setCell.setCardView.faceUp = setCard.isFaceUp;
         } else {
             NSLog(@"Card from cardAtIndex at index:%u was not a SetCard.",(NSUInteger)indexPath.item);
             exit(1);
@@ -76,5 +77,13 @@
     }
     return cell;
 }
-
+- (IBAction)tap:(UITapGestureRecognizer *)sender {
+    NSLog(@"Hey!");
+    CGPoint tapPoint = [sender locationInView:self.cardCollectionView];
+    NSIndexPath* path = [self.cardCollectionView indexPathForItemAtPoint:tapPoint];
+    [self.game flipCardAtIndex:path.item];
+    GraphicalSetCollectionViewCell* cell = (GraphicalSetCollectionViewCell*) [self.cardCollectionView cellForItemAtIndexPath:path];
+    [cell.setCardView setFaceUp:YES];
+    [cell.setCardView setNeedsDisplay];
+}
 @end

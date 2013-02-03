@@ -69,6 +69,7 @@
 
 - (void) flipCardAtIndex:(NSUInteger)index
 {
+    NSLog(@"Yo");
     Card* card = [self cardAtIndex:index];
     bool wasMatchOrMismatch = NO;
     if (!card.isUnplayable) {
