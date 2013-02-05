@@ -218,4 +218,9 @@
     return self;
 }
 
+- (BOOL)isHorizontal
+{
+    return NO;
+}
+
 @end

@@ -18,28 +18,16 @@
 @interface GraphicalSetViewController ()
 
 @property (weak, nonatomic) IBOutlet UIButton *addCardsButton;
-@property (weak, nonatomic) IBOutlet GraphicalSetCardView *firstCardViewOutlet;
-@property (weak, nonatomic) IBOutlet GraphicalSetCardView *secondCardViewOutlet;
-@property (weak, nonatomic) IBOutlet GraphicalSetCardView *thirdCardViewOutlet;
 
 @end
 
-#define STARTING_CARD_COUNT 20
+#define STARTING_CARD_COUNT 12
 #define CARDS_TO_ADD 3
 #define CARDS_TO_MATCH 3
-#define DISABLED_ALPHA 0.7f;
+#define DISABLED_ALPHA 0.7f
 
 @implementation GraphicalSetViewController
 
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    self.firstCardViewOutlet.hidden = YES;
-    self.secondCardViewOutlet.hidden = YES;
-    self.thirdCardViewOutlet.hidden = YES;
-	// Do any additional setup after loading the view, typically from a nib.
-}
 
 #pragma mark Virtual Function Overriding
 
@@ -80,11 +68,6 @@
 
 #pragma mark Helper Functions
 
-
-- (void)updateViewForCell:(CardCollectionViewCell*)cell withSetCard:(SetCard*)card
-{
-    [(GraphicalSetCardView*)cell.cardView populateWithSetCard:card];
-}
 
 - (IBAction)addCardsPressed {
     BOOL areMoreCards = [self.game addMoreCards:CARDS_TO_ADD];

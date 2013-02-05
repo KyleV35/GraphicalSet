@@ -238,4 +238,9 @@
     self.unplayable = card.isUnplayable;
 }
 
+- (BOOL)isHorizontal
+{
+    return YES;
+}
+
 @end

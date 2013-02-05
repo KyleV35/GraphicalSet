@@ -31,4 +31,10 @@
     [self setNeedsDisplay];
 }
 
+- (BOOL) isHorizontal
+{
+    NSLog(@"Method isHorizontal should be implemented by a subclass");
+    exit(1);
+}
+
 @end

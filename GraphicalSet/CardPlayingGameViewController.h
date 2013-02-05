@@ -16,7 +16,6 @@
 
 @property (strong, nonatomic) CardMatchingGame* game;
 @property (weak, nonatomic) IBOutlet UICollectionView *cardCollectionView;
-@property (weak, nonatomic) IBOutlet UIView *lastFlipStatus;
 
 - (IBAction)dealPressed;
 
@@ -25,7 +24,6 @@
 @property (nonatomic, readonly) NSUInteger startingCardCount;
 @property (nonatomic, readonly) NSUInteger numberOfCardsToMatch;
 - (Deck*)createDeck;
-- (IBAction)tap:(UITapGestureRecognizer *)sender;
 - (UICollectionViewCell *)collectionView:(UICollectionView *)asker cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 - (void)populateView:(CardView*)cardView withCard:(Card*)card;
 - (CardView*) createCardView;

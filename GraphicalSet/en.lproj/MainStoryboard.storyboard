@@ -23,7 +23,7 @@
             </objects>
             <point key="canvasLocation" x="-318" y="-155"/>
         </scene>
-        <!--Graphical Set View Controller - Item-->
+        <!--Graphical Set View Controller - Set-->
         <scene sceneID="5">
             <objects>
                 <viewController id="2" customClass="GraphicalSetViewController" sceneMemberID="viewController">
@@ -38,17 +38,17 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="QUP-a5-PId">
-                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="itemSize" width="75" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="GraphicalSetCard" id="gUF-ih-1bF" customClass="CardCollectionViewCell">
-                                        <rect key="frame" x="10" y="0.0" width="91" height="65"/>
+                                        <rect key="frame" x="10" y="0.0" width="75" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="91" height="65"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="75" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="peH-Ix-Zxs" customClass="GraphicalSetCardView">
@@ -58,12 +58,11 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="peH-Ix-Zxs" firstAttribute="leading" secondItem="gUF-ih-1bF" secondAttribute="leading" type="user" id="1Gg-dP-ckG"/>
-                                            <constraint firstItem="peH-Ix-Zxs" firstAttribute="top" secondItem="gUF-ih-1bF" secondAttribute="top" type="default" id="X7P-GD-pZ7"/>
-                                            <constraint firstItem="peH-Ix-Zxs" firstAttribute="bottom" secondItem="gUF-ih-1bF" secondAttribute="bottom" type="default" id="bjO-kY-Cgz"/>
-                                            <constraint firstItem="peH-Ix-Zxs" firstAttribute="trailing" secondItem="gUF-ih-1bF" secondAttribute="trailing" type="default" id="zwO-1Q-PMi"/>
+                                            <constraint firstItem="peH-Ix-Zxs" firstAttribute="leading" secondItem="gUF-ih-1bF" secondAttribute="leading" type="default" id="RWw-AW-6UU"/>
+                                            <constraint firstItem="peH-Ix-Zxs" firstAttribute="top" secondItem="gUF-ih-1bF" secondAttribute="top" type="default" id="RgG-pO-1c0"/>
+                                            <constraint firstItem="peH-Ix-Zxs" firstAttribute="trailing" secondItem="gUF-ih-1bF" secondAttribute="trailing" type="default" id="Si8-QX-742"/>
+                                            <constraint firstItem="peH-Ix-Zxs" firstAttribute="bottom" secondItem="gUF-ih-1bF" secondAttribute="bottom" type="default" id="lXQ-ge-6ob"/>
                                         </constraints>
-                                        <size key="customSize" width="91" height="65"/>
                                         <connections>
                                             <outlet property="cardView" destination="peH-Ix-Zxs" id="cZP-dn-Eai"/>
                                         </connections>
@@ -116,27 +115,36 @@
                                     <constraint firstItem="8M0-d4-aRH" firstAttribute="top" secondItem="vIv-H3-zey" secondAttribute="top" constant="20" symbolic="YES" type="default" id="Esk-QF-ZyW"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vJS-lc-kqw">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="vJS-lc-kqw" firstAttribute="leading" secondItem="fAh-7B-1oF" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="4Be-6A-JP3"/>
                             <constraint firstItem="vIv-H3-zey" firstAttribute="top" secondItem="St1-pm-99z" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="BKf-OS-65H"/>
                             <constraint firstAttribute="bottom" secondItem="gge-k3-dHJ" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="KUd-QE-raC"/>
+                            <constraint firstItem="vJS-lc-kqw" firstAttribute="centerY" secondItem="fAh-7B-1oF" secondAttribute="centerY" type="default" id="PMi-yc-g1D"/>
+                            <constraint firstItem="fAh-7B-1oF" firstAttribute="centerX" secondItem="vIv-H3-zey" secondAttribute="centerX" type="default" id="QEN-4Z-tVb"/>
                             <constraint firstAttribute="trailing" secondItem="vIv-H3-zey" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="RAF-Og-S59"/>
+                            <constraint firstAttribute="trailing" secondItem="vJS-lc-kqw" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="USQ-CP-uKb"/>
                             <constraint firstItem="St1-pm-99z" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="Uce-RH-2r5"/>
                             <constraint firstItem="gge-k3-dHJ" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="cnl-DU-QEs"/>
                             <constraint firstItem="St1-pm-99z" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="euH-1W-d7Z"/>
                             <constraint firstItem="gge-k3-dHJ" firstAttribute="top" secondItem="vIv-H3-zey" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="fmM-yr-vTc"/>
                             <constraint firstItem="vIv-H3-zey" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="gZh-D4-USW"/>
-                            <constraint firstAttribute="trailing" secondItem="fAh-7B-1oF" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="jc4-13-uFA"/>
-                            <constraint firstItem="St1-pm-99z" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="qd1-1t-gVu"/>
+                            <constraint firstItem="St1-pm-99z" firstAttribute="top" secondItem="3" secondAttribute="top" constant="20" symbolic="YES" type="default" id="gtV-WD-rEN"/>
                             <constraint firstAttribute="bottom" secondItem="fAh-7B-1oF" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="xoL-RW-D5C"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="Iky-1M-clB"/>
+                    <tabBarItem key="tabBarItem" title="Set" id="Iky-1M-clB"/>
                     <connections>
                         <outlet property="addCardsButton" destination="fAh-7B-1oF" id="azc-yz-AqG"/>
                         <outlet property="cardCollectionView" destination="St1-pm-99z" id="RJF-Rd-mtv"/>
                         <outlet property="lastFlipStatus" destination="vIv-H3-zey" id="u6g-9r-yFJ"/>
+                        <outlet property="scoreLabel" destination="vJS-lc-kqw" id="9hO-FS-DOT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
@@ -148,7 +156,7 @@
             </objects>
             <point key="canvasLocation" x="165" y="207"/>
         </scene>
-        <!--Card Matching Game View Controller - Item-->
+        <!--Card Matching Game View Controller - Matchismo-->
         <scene sceneID="0EZ-9j-wjj">
             <objects>
                 <viewController id="MkI-mR-3Td" customClass="CardMatchingGameViewController" sceneMemberID="viewController">
@@ -160,17 +168,17 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="lk9-CK-qPC">
-                                    <size key="itemSize" width="76" height="83"/>
+                                    <size key="itemSize" width="60" height="75"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PlayingCard" id="Sb7-K4-w3s" customClass="CardCollectionViewCell">
-                                        <rect key="frame" x="10" y="0.0" width="76" height="83"/>
+                                        <rect key="frame" x="10" y="0.0" width="60" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="76" height="83"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="60" height="75"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jFl-tT-pCs" customClass="PlayingCardView">
@@ -180,10 +188,10 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="jFl-tT-pCs" firstAttribute="bottom" secondItem="Sb7-K4-w3s" secondAttribute="bottom" type="default" id="ON7-Jj-WSB"/>
-                                            <constraint firstItem="jFl-tT-pCs" firstAttribute="top" secondItem="Sb7-K4-w3s" secondAttribute="top" type="default" id="WU3-vo-DQp"/>
-                                            <constraint firstItem="jFl-tT-pCs" firstAttribute="trailing" secondItem="Sb7-K4-w3s" secondAttribute="trailing" type="default" id="qlL-O5-EXf"/>
-                                            <constraint firstItem="jFl-tT-pCs" firstAttribute="leading" secondItem="Sb7-K4-w3s" secondAttribute="leading" type="default" id="zxq-qL-ZLu"/>
+                                            <constraint firstItem="jFl-tT-pCs" firstAttribute="top" secondItem="Sb7-K4-w3s" secondAttribute="top" type="default" id="5Xy-Kw-vnC"/>
+                                            <constraint firstItem="jFl-tT-pCs" firstAttribute="bottom" secondItem="Sb7-K4-w3s" secondAttribute="bottom" type="default" id="72s-Pn-5lC"/>
+                                            <constraint firstItem="jFl-tT-pCs" firstAttribute="leading" secondItem="Sb7-K4-w3s" secondAttribute="leading" type="default" id="IKd-7d-MaQ"/>
+                                            <constraint firstItem="jFl-tT-pCs" firstAttribute="trailing" secondItem="Sb7-K4-w3s" secondAttribute="trailing" type="default" id="gP6-3h-xKW"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="cardView" destination="jFl-tT-pCs" id="aCm-ne-9Xf"/>
@@ -196,7 +204,25 @@
                                     <outletCollection property="gestureRecognizers" destination="b7z-4g-IP1" appends="YES" id="lwO-Eo-Nzx"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hvR-BA-Uas">
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cj4-bM-DDq">
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Cj4-bM-DDq" firstAttribute="leading" secondItem="hvR-BA-Uas" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="6HX-yN-DFy"/>
+                                    <constraint firstItem="Cj4-bM-DDq" firstAttribute="top" secondItem="hvR-BA-Uas" secondAttribute="top" constant="20" symbolic="YES" type="default" id="EfD-Zy-3mu"/>
+                                    <constraint firstAttribute="height" constant="40" type="user" id="jp4-ga-qqt"/>
+                                </constraints>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VzX-qV-1kk">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="EiF-KS-A2S"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Re-Deal">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -210,20 +236,33 @@
                                     <action selector="dealPressed" destination="MkI-mR-3Td" eventType="touchUpInside" id="j8V-S0-Xdm"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Do1-eV-tyP">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Gx6-TO-3vi" firstAttribute="top" secondItem="bfG-k7-vlt" secondAttribute="top" type="default" id="9S9-5O-lfw"/>
                             <constraint firstItem="Gx6-TO-3vi" firstAttribute="leading" secondItem="bfG-k7-vlt" secondAttribute="leading" type="default" id="CUv-1K-Mj5"/>
+                            <constraint firstItem="Do1-eV-tyP" firstAttribute="leading" secondItem="VzX-qV-1kk" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="GxB-Rs-hp5"/>
+                            <constraint firstAttribute="trailing" secondItem="hvR-BA-Uas" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="ILH-ft-htU"/>
+                            <constraint firstItem="Do1-eV-tyP" firstAttribute="baseline" secondItem="VzX-qV-1kk" secondAttribute="baseline" type="default" id="OWc-Nl-Kt0"/>
                             <constraint firstItem="VzX-qV-1kk" firstAttribute="leading" secondItem="bfG-k7-vlt" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="PA8-lb-q3v"/>
+                            <constraint firstItem="hvR-BA-Uas" firstAttribute="leading" secondItem="bfG-k7-vlt" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="R9o-aQ-ZZ0"/>
                             <constraint firstAttribute="bottom" secondItem="VzX-qV-1kk" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="XDI-bl-wQa"/>
-                            <constraint firstItem="VzX-qV-1kk" firstAttribute="top" secondItem="Gx6-TO-3vi" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="hyy-WT-mBe"/>
+                            <constraint firstItem="VzX-qV-1kk" firstAttribute="top" secondItem="hvR-BA-Uas" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="h7O-nF-BcN"/>
                             <constraint firstItem="Gx6-TO-3vi" firstAttribute="trailing" secondItem="bfG-k7-vlt" secondAttribute="trailing" type="default" id="pzU-CJ-V2N"/>
+                            <constraint firstAttribute="trailing" secondItem="Do1-eV-tyP" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="sxF-Da-onV"/>
+                            <constraint firstItem="Gx6-TO-3vi" firstAttribute="top" secondItem="bfG-k7-vlt" secondAttribute="top" type="default" id="x2L-Ah-Cez"/>
+                            <constraint firstItem="hvR-BA-Uas" firstAttribute="top" secondItem="Gx6-TO-3vi" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="xD3-rd-dIa"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="kJl-M5-aNR"/>
+                    <tabBarItem key="tabBarItem" title="Matchismo" id="kJl-M5-aNR"/>
                     <connections>
                         <outlet property="cardCollectionView" destination="Gx6-TO-3vi" id="tus-Dn-epH"/>
+                        <outlet property="lastFlipStatus" destination="hvR-BA-Uas" id="kDK-KJ-f7P"/>
+                        <outlet property="scoreLabel" destination="Do1-eV-tyP" id="uDv-h9-PFZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wan-Pt-gDN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -253,6 +292,7 @@
                 <relationship kind="action" name="tap:" candidateClass="UITapGestureRecognizer"/>
                 <relationship kind="outlet" name="cardCollectionView" candidateClass="UICollectionView"/>
                 <relationship kind="outlet" name="lastFlipStatus" candidateClass="UIView"/>
+                <relationship kind="outlet" name="scoreLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="CardView" superclassName="UIView">
@@ -265,9 +305,6 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphicalSetViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="addCardsButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="firstCardViewOutlet" candidateClass="GraphicalSetCardView"/>
-                <relationship kind="outlet" name="secondCardViewOutlet" candidateClass="GraphicalSetCardView"/>
-                <relationship kind="outlet" name="thirdCardViewOutlet" candidateClass="GraphicalSetCardView"/>
             </relationships>
         </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">

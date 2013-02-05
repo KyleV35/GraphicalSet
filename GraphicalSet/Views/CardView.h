@@ -13,4 +13,6 @@
 @property (nonatomic) BOOL faceUp;
 @property (nonatomic) BOOL unplayable;
 
+- (BOOL)isHorizontal;
+
 @end
