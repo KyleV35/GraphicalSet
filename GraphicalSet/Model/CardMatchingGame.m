@@ -18,7 +18,7 @@
 
 @property (strong,nonatomic) Deck* deck;
 
-#define DEFAULT_NUM_CARDS_TO_MATCH 3
+#define DEFAULT_NUM_CARDS_TO_MATCH 2
 @end
 
 @implementation CardMatchingGame

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "SetCard.h"
+#import "CardView.h"
 
-@interface GraphicalSetCardView : UIView
+@interface GraphicalSetCardView : CardView
 
 @property (nonatomic) NSUInteger shape;
 @property (nonatomic) NSUInteger number;
@@ -17,7 +18,6 @@
 @property (nonatomic) NSUInteger shading;
 
 @property (nonatomic) BOOL faceUp;
-@property (nonatomic) BOOL unplayable;
 
 - (void) populateWithSetCard:(SetCard*)card;
 

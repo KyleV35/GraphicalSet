@@ -1,14 +1,14 @@
 //
-//  GraphicalSetCollectionViewCell.m
+//  PlayingCardCollectionViewCell.m
 //  GraphicalSet
 //
-//  Created by Kyle Vermeer on 2/2/13.
+//  Created by Kyle Vermeer on 2/4/13.
 //  Copyright (c) 2013 Kyle Vermeer. All rights reserved.
 //
 
-#import "GraphicalSetCollectionViewCell.h"
+#import "PlayingCardCollectionViewCell.h"
 
-@implementation GraphicalSetCollectionViewCell
+@implementation PlayingCardCollectionViewCell
 
 - (id)initWithFrame:(CGRect)frame
 {

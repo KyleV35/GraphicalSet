@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GraphicalSetViewController : UIViewController
+#import "CardPlayingGameViewController.h"
+
+@interface GraphicalSetViewController : CardPlayingGameViewController
 
 @end

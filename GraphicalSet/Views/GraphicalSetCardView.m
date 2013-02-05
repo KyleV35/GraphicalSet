@@ -42,6 +42,30 @@
     self.contentMode = UIViewContentModeRedraw;
 }
 
+- (void) setShape:(NSUInteger)shape
+{
+    _shape = shape;
+    [self setNeedsDisplay];
+}
+
+- (void) setShading:(NSUInteger)shading
+{
+    _shading = shading;
+    [self setNeedsDisplay];
+}
+
+- (void)setColor:(NSUInteger)color
+{
+    _color = color;
+    [self setNeedsDisplay];
+}
+
+- (void)setNumber:(NSUInteger)number
+{
+    _number = number;
+    [self setNeedsDisplay];
+}
+
 - (UIColor*)cardColor
 {
     switch (self.color) {
@@ -66,12 +90,10 @@
     
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:CARD_CORNER_RADIUS];
     CGContextSaveGState(context);
-    if (self.unplayable) {
-        [[UIColor clearColor] setFill];
-    } else if (self.faceUp) {
-        [[UIColor yellowColor] setFill];
-    } else {
+    if (self.unplayable || !self.faceUp) {
         [[UIColor whiteColor] setFill];
+    } else {
+        [[UIColor yellowColor] setFill];
     }
     [path fill];
     [path addClip];

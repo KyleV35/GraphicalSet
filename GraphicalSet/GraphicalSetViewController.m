@@ -7,16 +7,16 @@
 //
 
 #import "GraphicalSetViewController.h"
-#import "GraphicalSetCollectionViewCell.h"
 #import "CardMatchingGame.h"
 #import "SetCardDeck.h"
 #import "SetCard.h"
 #import "Card.h"
 
-@interface GraphicalSetViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+#import "CardCollectionViewCell.h"
+#import "GraphicalSetCardView.h"
 
-@property (weak, nonatomic) IBOutlet UICollectionView *cardCollectionView;
-@property (strong, nonatomic) CardMatchingGame* game;
+@interface GraphicalSetViewController ()
+
 @property (weak, nonatomic) IBOutlet UIButton *addCardsButton;
 @property (weak, nonatomic) IBOutlet GraphicalSetCardView *firstCardViewOutlet;
 @property (weak, nonatomic) IBOutlet GraphicalSetCardView *secondCardViewOutlet;
@@ -26,17 +26,11 @@
 
 #define STARTING_CARD_COUNT 20
 #define CARDS_TO_ADD 3
+#define CARDS_TO_MATCH 3
 #define DISABLED_ALPHA 0.7f;
 
 @implementation GraphicalSetViewController
 
-- (CardMatchingGame*)game
-{
-    if (!_game) {
-        _game = [[CardMatchingGame alloc] initWithCardCount:STARTING_CARD_COUNT usingDeck:[[SetCardDeck alloc] init]];
-    }
-    return _game;
-}
 
 - (void)viewDidLoad
 {
@@ -47,108 +41,49 @@
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
-- (void)didReceiveMemoryWarning
+#pragma mark Virtual Function Overriding
+
+- (NSUInteger)startingCardCount
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    return STARTING_CARD_COUNT;
 }
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)asker
+- (Deck*)createDeck
 {
-    return 1;
+    return [[SetCardDeck alloc] init];
 }
 
-- (NSInteger)collectionView:(UICollectionView *)asker numberOfItemsInSection:(NSInteger)section
+- (NSUInteger)numberOfCardsToMatch
 {
-    return [self.game cardCount];
+    return CARDS_TO_MATCH;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)asker cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *cell = [self.cardCollectionView dequeueReusableCellWithReuseIdentifier:@"GraphicalSetCard" forIndexPath:indexPath];
-    if ([cell isKindOfClass:[GraphicalSetCollectionViewCell class]]) {
-        GraphicalSetCollectionViewCell *setCell = (GraphicalSetCollectionViewCell*)cell;
+    if ([cell isKindOfClass:[CardCollectionViewCell class]]) {
+        CardCollectionViewCell *cardCell = (CardCollectionViewCell*)cell;
         Card* card = [self.game cardAtIndex:(NSUInteger)indexPath.item];
-        if ([card isKindOfClass:[SetCard class]]) {
-            SetCard *setCard = (SetCard*)card;
-            [self updateViewForCell:setCell withSetCard:setCard];
-        } else {
-            NSLog(@"Card from cardAtIndex at index:%u was not a SetCard.",(NSUInteger)indexPath.item);
-            exit(1);
-        }
+        [self populateView:cardCell.cardView withCard:card];
     } else {
         NSLog(@"Cell from cardCollectionView was not a GraphicalSetCollectionViewCell.");
         exit(1);
     }
     return cell;
 }
-- (IBAction)tap:(UITapGestureRecognizer *)sender {
-    
-    if (sender.state == UIGestureRecognizerStateEnded) {
-        //Get index of card
-        CGPoint tapPoint = [sender locationInView:self.cardCollectionView];
-        NSIndexPath* indexPath = [self.cardCollectionView indexPathForItemAtPoint:tapPoint];
-        
-        if (indexPath) {
-            //Flip card
-            [self.game flipCardAtIndex:indexPath.item];
-            NSLog(@"Index: %d",indexPath.item);
-            NSLog(@"Point: %f,%f",tapPoint.x,tapPoint.y);
-            
-            //Get Results of flip
-            [self handleLastFlip];
-            
-            Card* card = [self.game cardAtIndex:(NSUInteger)indexPath.item];
-            if ([card isKindOfClass:[SetCard class]]) {
-                SetCard* setCard = (SetCard*) card;
-                GraphicalSetCollectionViewCell* cell = (GraphicalSetCollectionViewCell*) [self.cardCollectionView cellForItemAtIndexPath:indexPath];
-                [self updateViewForCell:cell withSetCard:setCard];
-            }
-            
-            [self.cardCollectionView reloadData];
-        }
-    }
-}
-
-- (void)updateViewForCell:(GraphicalSetCollectionViewCell*)cell withSetCard:(SetCard*)card
-{
-    [cell.setCardView populateWithSetCard:card];
-    [cell.setCardView setNeedsDisplay];
-}
-
-- (void) handleLastFlip
-{
-    NSArray *lastFlipResults = [self.game resultsOfLastFlip];
-    if ([lastFlipResults count] == 4) {
-        NSNumber* points = [lastFlipResults lastObject];
-        if ([points intValue] > 0) {
-            [self handleMatchOf:lastFlipResults[0] secondCard:lastFlipResults[1] thirdCard:lastFlipResults[2] withPoints:[points intValue]];
-        }
-    }
-}
-
-- (void) handleMatchOf:(SetCard*)firstCard secondCard:(SetCard*)secondCard thirdCard:(SetCard*)thirdCard withPoints:(int)points
-{
-    [self.firstCardViewOutlet populateWithSetCard:firstCard];
-    self.firstCardViewOutlet.
-    [self.firstCardViewOutlet setNeedsDisplay];
-    self.firstCardViewOutlet.hidden = NO;
-    [self.secondCardViewOutlet populateWithSetCard:secondCard];
-    [self.secondCardViewOutlet setNeedsDisplay];
-    self.secondCardViewOutlet.hidden = NO;
-    [self.thirdCardViewOutlet populateWithSetCard:thirdCard];
-    [self.thirdCardViewOutlet setNeedsDisplay];
-    self.thirdCardViewOutlet.hidden = NO;
-    [self.game removeCard:firstCard];
-    [self.game removeCard:secondCard];
-    [self.game removeCard:thirdCard];
-}
 
 - (IBAction)dealPressed {
-    self.game = nil;
-    [self.cardCollectionView reloadData];
+    [super dealPressed];
     [self.addCardsButton setEnabled:YES];
     self.addCardsButton.alpha = 1.0f;
+}
+
+#pragma mark Helper Functions
+
+
+- (void)updateViewForCell:(CardCollectionViewCell*)cell withSetCard:(SetCard*)card
+{
+    [(GraphicalSetCardView*)cell.cardView populateWithSetCard:card];
 }
 
 - (IBAction)addCardsPressed {
@@ -159,9 +94,31 @@
     }
     [self.cardCollectionView reloadData];
     NSUInteger count = [self.game cardCount];
-    [self.cardCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:(count-1) inSection:0] 
+    [self.cardCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:(count-1) inSection:0]
                                     atScrollPosition:UICollectionViewScrollPositionBottom
                                             animated:YES];
+}
+
+- (void)populateView:(CardView*)cardView withCard:(Card*)card
+{
+    if ([card isKindOfClass:[SetCard class]]) {
+        SetCard* setCard = (SetCard*)card;
+        if ([cardView isKindOfClass:[GraphicalSetCardView class]]) {
+            GraphicalSetCardView* setCardView = (GraphicalSetCardView*)cardView;
+            [setCardView populateWithSetCard:setCard];
+        } else {
+            NSLog(@"Not a GraphicalSetCardView!");
+            exit(1);
+        }
+    } else {
+        NSLog(@"Not a SetCard!");
+        exit(1);
+    }
+}
+
+- (CardView*) createCardView
+{
+    return [[GraphicalSetCardView alloc] init];
 }
 
 @end
