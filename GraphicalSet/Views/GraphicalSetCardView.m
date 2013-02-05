@@ -66,11 +66,12 @@
     
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:CARD_CORNER_RADIUS];
     CGContextSaveGState(context);
-    if (!self.faceUp) {
-        [[UIColor whiteColor] setFill];
+    if (self.unplayable) {
+        [[UIColor clearColor] setFill];
+    } else if (self.faceUp) {
+        [[UIColor yellowColor] setFill];
     } else {
-        NSLog(@"Face Up");
-        [[UIColor yellowColor]setFill];
+        [[UIColor whiteColor] setFill];
     }
     [path fill];
     [path addClip];
@@ -203,6 +204,16 @@
     } else {
         NSLog(@"Unknown Shading: %u",self.shading);
     }
+}
+
+- (void) populateWithSetCard:(SetCard*)card
+{
+    self.number = card.number;
+    self.color = card.color;
+    self.shape = card.shape;
+    self.shading = card.shading;
+    self.faceUp = card.isFaceUp;
+    self.unplayable = card.isUnplayable;
 }
 
 @end

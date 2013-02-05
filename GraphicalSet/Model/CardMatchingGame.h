@@ -16,6 +16,8 @@
 - (void)flipCardAtIndex:(NSUInteger)index;
 - (Card*)cardAtIndex:(NSUInteger)index;
 - (void)setNumberOfCardsToMatch:(NSUInteger)numberToMatch;
+- (void)removeCard:(Card*)card;
+- (BOOL)addMoreCards:(NSUInteger)numberOfCardsToAdd;
 
 @property (nonatomic, readonly, getter=resultsOfLastFlip) NSArray* resultsOfLastFlip;
 @property (nonatomic,readonly) int score;

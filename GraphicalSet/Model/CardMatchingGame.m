@@ -16,7 +16,9 @@
 @property (nonatomic) NSUInteger numCardsToMatch;
 @property (strong, nonatomic) NSMutableArray *lastFlipArray;
 
-#define DEFAULT_NUM_CARDS_TO_MATCH 2
+@property (strong,nonatomic) Deck* deck;
+
+#define DEFAULT_NUM_CARDS_TO_MATCH 3
 @end
 
 @implementation CardMatchingGame
@@ -44,6 +46,7 @@
 {
     self = [super init];
     if (self) {
+        self.deck = deck;
         for (int i=0; i < cardCount; i++) {
             Card *card = [deck drawRandomCard];
             if (!card) {
@@ -55,6 +58,20 @@
     }
     self.numCardsToMatch = DEFAULT_NUM_CARDS_TO_MATCH;
     return self;
+}
+
+- (BOOL) addMoreCards:(NSUInteger)numberOfCardsToAdd
+{
+    for (int i=0; i < numberOfCardsToAdd; i++) {
+        Card* card = [self.deck drawRandomCard];
+        if (card == nil) return NO;
+        [self.cards addObject:card];
+    }
+    if ([self.deck cardsLeft] > 0) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 - (Card*) cardAtIndex:(NSUInteger)index
@@ -69,7 +86,6 @@
 
 - (void) flipCardAtIndex:(NSUInteger)index
 {
-    NSLog(@"Yo");
     Card* card = [self cardAtIndex:index];
     bool wasMatchOrMismatch = NO;
     if (!card.isUnplayable) {
@@ -184,6 +200,11 @@
 -(void)setNumberOfCardsToMatch:(NSUInteger)numberToMatch
 {
     self.numCardsToMatch = numberToMatch;
+}
+
+- (void)removeCard:(Card *)card
+{
+    [self.cards removeObject:card];
 }
 
 @end

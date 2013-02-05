@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SetCard.h"
 
 @interface GraphicalSetCardView : UIView
 
@@ -16,5 +17,8 @@
 @property (nonatomic) NSUInteger shading;
 
 @property (nonatomic) BOOL faceUp;
+@property (nonatomic) BOOL unplayable;
+
+- (void) populateWithSetCard:(SetCard*)card;
 
 @end

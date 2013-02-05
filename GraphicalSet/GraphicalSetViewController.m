@@ -17,10 +17,16 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *cardCollectionView;
 @property (strong, nonatomic) CardMatchingGame* game;
+@property (weak, nonatomic) IBOutlet UIButton *addCardsButton;
+@property (weak, nonatomic) IBOutlet GraphicalSetCardView *firstCardViewOutlet;
+@property (weak, nonatomic) IBOutlet GraphicalSetCardView *secondCardViewOutlet;
+@property (weak, nonatomic) IBOutlet GraphicalSetCardView *thirdCardViewOutlet;
 
 @end
 
 #define STARTING_CARD_COUNT 20
+#define CARDS_TO_ADD 3
+#define DISABLED_ALPHA 0.7f;
 
 @implementation GraphicalSetViewController
 
@@ -35,6 +41,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.firstCardViewOutlet.hidden = YES;
+    self.secondCardViewOutlet.hidden = YES;
+    self.thirdCardViewOutlet.hidden = YES;
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -62,11 +71,7 @@
         Card* card = [self.game cardAtIndex:(NSUInteger)indexPath.item];
         if ([card isKindOfClass:[SetCard class]]) {
             SetCard *setCard = (SetCard*)card;
-            setCell.setCardView.number = setCard.number;
-            setCell.setCardView.color = setCard.color;
-            setCell.setCardView.shape = setCard.shape;
-            setCell.setCardView.shading = setCard.shading;
-            setCell.setCardView.faceUp = setCard.isFaceUp;
+            [self updateViewForCell:setCell withSetCard:setCard];
         } else {
             NSLog(@"Card from cardAtIndex at index:%u was not a SetCard.",(NSUInteger)indexPath.item);
             exit(1);
@@ -78,12 +83,85 @@
     return cell;
 }
 - (IBAction)tap:(UITapGestureRecognizer *)sender {
-    NSLog(@"Hey!");
-    CGPoint tapPoint = [sender locationInView:self.cardCollectionView];
-    NSIndexPath* path = [self.cardCollectionView indexPathForItemAtPoint:tapPoint];
-    [self.game flipCardAtIndex:path.item];
-    GraphicalSetCollectionViewCell* cell = (GraphicalSetCollectionViewCell*) [self.cardCollectionView cellForItemAtIndexPath:path];
-    [cell.setCardView setFaceUp:YES];
+    
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        //Get index of card
+        CGPoint tapPoint = [sender locationInView:self.cardCollectionView];
+        NSIndexPath* indexPath = [self.cardCollectionView indexPathForItemAtPoint:tapPoint];
+        
+        if (indexPath) {
+            //Flip card
+            [self.game flipCardAtIndex:indexPath.item];
+            NSLog(@"Index: %d",indexPath.item);
+            NSLog(@"Point: %f,%f",tapPoint.x,tapPoint.y);
+            
+            //Get Results of flip
+            [self handleLastFlip];
+            
+            Card* card = [self.game cardAtIndex:(NSUInteger)indexPath.item];
+            if ([card isKindOfClass:[SetCard class]]) {
+                SetCard* setCard = (SetCard*) card;
+                GraphicalSetCollectionViewCell* cell = (GraphicalSetCollectionViewCell*) [self.cardCollectionView cellForItemAtIndexPath:indexPath];
+                [self updateViewForCell:cell withSetCard:setCard];
+            }
+            
+            [self.cardCollectionView reloadData];
+        }
+    }
+}
+
+- (void)updateViewForCell:(GraphicalSetCollectionViewCell*)cell withSetCard:(SetCard*)card
+{
+    [cell.setCardView populateWithSetCard:card];
     [cell.setCardView setNeedsDisplay];
 }
+
+- (void) handleLastFlip
+{
+    NSArray *lastFlipResults = [self.game resultsOfLastFlip];
+    if ([lastFlipResults count] == 4) {
+        NSNumber* points = [lastFlipResults lastObject];
+        if ([points intValue] > 0) {
+            [self handleMatchOf:lastFlipResults[0] secondCard:lastFlipResults[1] thirdCard:lastFlipResults[2] withPoints:[points intValue]];
+        }
+    }
+}
+
+- (void) handleMatchOf:(SetCard*)firstCard secondCard:(SetCard*)secondCard thirdCard:(SetCard*)thirdCard withPoints:(int)points
+{
+    [self.firstCardViewOutlet populateWithSetCard:firstCard];
+    self.firstCardViewOutlet.
+    [self.firstCardViewOutlet setNeedsDisplay];
+    self.firstCardViewOutlet.hidden = NO;
+    [self.secondCardViewOutlet populateWithSetCard:secondCard];
+    [self.secondCardViewOutlet setNeedsDisplay];
+    self.secondCardViewOutlet.hidden = NO;
+    [self.thirdCardViewOutlet populateWithSetCard:thirdCard];
+    [self.thirdCardViewOutlet setNeedsDisplay];
+    self.thirdCardViewOutlet.hidden = NO;
+    [self.game removeCard:firstCard];
+    [self.game removeCard:secondCard];
+    [self.game removeCard:thirdCard];
+}
+
+- (IBAction)dealPressed {
+    self.game = nil;
+    [self.cardCollectionView reloadData];
+    [self.addCardsButton setEnabled:YES];
+    self.addCardsButton.alpha = 1.0f;
+}
+
+- (IBAction)addCardsPressed {
+    BOOL areMoreCards = [self.game addMoreCards:CARDS_TO_ADD];
+    if (!areMoreCards) {
+        [self.addCardsButton setEnabled:NO];
+        self.addCardsButton.alpha = DISABLED_ALPHA;
+    }
+    [self.cardCollectionView reloadData];
+    NSUInteger count = [self.game cardCount];
+    [self.cardCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:(count-1) inSection:0] 
+                                    atScrollPosition:UICollectionViewScrollPositionBottom
+                                            animated:YES];
+}
+
 @end
